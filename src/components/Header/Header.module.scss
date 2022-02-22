@@ -1,0 +1,17 @@
+.header {
+    padding: 1.5rem 0;
+
+    color: var(--color-text);
+    background-color: var(--color-elements);
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    font-size: clamp(0.9rem, 5vw, 1.8rem);
+    font-weight: 800;
+}

@@ -1,0 +1,15 @@
+.themeSwitch {
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+
+    cursor: pointer;
+
+    user-select: none;
+}
+
+.icon {
+    transform: scale(1.7);
+}
