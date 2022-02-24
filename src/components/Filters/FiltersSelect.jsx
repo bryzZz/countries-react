@@ -1,9 +1,6 @@
 import Select from 'react-select';
 
 const selectStyles = {
-    container: (provided) => ({
-        ...provided,
-    }),
     control: (provided) => ({
         ...provided,
         maxWidth: 300,
@@ -11,14 +8,14 @@ const selectStyles = {
         height: '4rem',
         padding: '0.5rem 1rem',
         backgroundColor: 'var(--color-elements)',
-        boxShadow: '0 0 3px 3px rgba(0, 0, 0, 0.05)',
+        boxShadow: 'var(--shadow)',
         border: 'none',
     }),
     menu: (provided) => ({
         ...provided,
         maxWidth: 300,
         backgroundColor: 'var(--color-elements)',
-        boxShadow: '0 0 3px 3px rgba(0, 0, 0, 0.05)',
+        boxShadow: 'var(--shadow)',
     }),
     singleValue: (provided) => ({
         ...provided,
@@ -26,12 +23,16 @@ const selectStyles = {
     }),
     option: (provided, { isFocused, isSelected }) => ({
         ...provided,
-        color: 'var(--color-text)',
+        color: isSelected
+            ? 'var(--color-elements)'
+            : isFocused
+            ? 'var(--color-elements)'
+            : 'var(--color-text)',
         fontWeight: 600,
         backgroundColor: isSelected
-            ? 'rgba(0, 0, 0, 0.05)'
+            ? 'var(--color-text)'
             : isFocused
-            ? 'rgba(0, 0, 0, 0.05)'
+            ? 'var(--color-text)'
             : 'transparent',
     }),
     placeholder: (provided) => ({
@@ -45,20 +46,6 @@ const selectStyles = {
     }),
 };
 
-export const FiltersSelect = ({ regions, defaultValue, onChange }) => {
-    regions = regions.reduce(
-        (accum, current) => [...accum, { value: current, label: current }],
-        []
-    );
-
-    return (
-        <Select
-            styles={selectStyles}
-            options={regions}
-            defaultValue={defaultValue}
-            onChange={onChange}
-            isClearable={true}
-            placeholder='Filter by Region'
-        />
-    );
+export const FiltersSelect = (props) => {
+    return <Select styles={selectStyles} {...props} />;
 };

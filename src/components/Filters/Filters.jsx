@@ -3,7 +3,13 @@ import classes from './Filters.module.scss';
 import { IoSearch } from 'react-icons/io5';
 import { FiltersSelect } from './FiltersSelect';
 
-const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+const regions = [
+    { value: 'Africa', label: 'Africa' },
+    { value: 'Americas', label: 'Americas' },
+    { value: 'Asia', label: 'Asia' },
+    { value: 'Europe', label: 'Europe' },
+    { value: 'Oceania', label: 'Oceania' },
+];
 
 export const Filters = ({ selectedRegion, onChangeRegion }) => {
     const [searchValue, setSearchValue] = useState('');
@@ -22,9 +28,11 @@ export const Filters = ({ selectedRegion, onChangeRegion }) => {
                     />
                 </div>
                 <FiltersSelect
-                    regions={regions}
+                    options={regions}
                     defaultValue={selectedRegion}
                     onChange={onChangeRegion}
+                    isClearable={true}
+                    placeholder='Filter by Region'
                 />
             </div>
         </div>
