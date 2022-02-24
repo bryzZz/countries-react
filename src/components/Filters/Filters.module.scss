@@ -23,7 +23,7 @@
     border-radius: 0.3rem;
 
     background-color: var(--color-elements);
-    box-shadow: 0 0 3px 3px rgba($color: #000000, $alpha: 0.05);
+    box-shadow: var(--shadow);
 }
 
 .input {
@@ -45,5 +45,5 @@
 
 .icon {
     fill: var(--color-text);
-    transform: scale(0.8);
+    transform: scale(1.7);
 }

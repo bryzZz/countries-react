@@ -1,5 +1,6 @@
 .themeSwitch {
     font-weight: 600;
+    text-transform: capitalize;
 
     display: flex;
     align-items: center;
@@ -8,8 +9,4 @@
     cursor: pointer;
 
     user-select: none;
-}
-
-.icon {
-    transform: scale(1.7);
 }
