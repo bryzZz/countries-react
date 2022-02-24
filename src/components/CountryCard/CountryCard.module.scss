@@ -1,8 +1,8 @@
 .countryCard {
     color: var(--color-text);
     background-color: var(--color-elements);
-    box-shadow: 0 0 3px 3px rgba($color: #000000, $alpha: 0.05);
-    border-radius: 0.3rem;
+    box-shadow: var(--shadow);
+    border-radius: var(--bor-rad);
     overflow: hidden;
 }
 
