@@ -2,11 +2,16 @@ import { useState } from 'react';
 import classses from './Filters.module.scss';
 import { FiltersSelect } from './FiltersSelect';
 
-const regions = ['africa', 'americas', 'asia', 'europe', 'oceania'];
+const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
 
-export const Filters = () => {
-    const [selectedRegion, setSelectedRegion] = useState(null);
+export const Filters = ({ selectedRegion, onChangeRegion }) => {
+    // const [selectedRegion, setSelectedRegion] = useState(null);
     const [searchValue, setSearchValue] = useState('');
+
+    // const handleChangeSelect = (value) => {
+    // onChangeRegion(value?.value ? value.value : null);
+    // setSelectedRegion(value);
+    // };
 
     return (
         <div className={classses.Filters}>
@@ -33,7 +38,7 @@ export const Filters = () => {
                 <FiltersSelect
                     regions={regions}
                     defaultValue={selectedRegion}
-                    onChange={setSelectedRegion}
+                    onChange={onChangeRegion}
                 />
             </div>
         </div>

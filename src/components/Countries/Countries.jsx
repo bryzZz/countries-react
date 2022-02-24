@@ -1,33 +1,43 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import classes from './Countries.module.scss';
 import { useFetchCountries } from '../../hooks/useFetchCountries';
 import { CountryCard } from '../CountryCard';
+import { useNavigate } from 'react-router-dom';
 
-export const Countries = () => {
-    const { countries, fetchAll, isLoading } = useFetchCountries();
+export const Countries = ({ region }) => {
+    const { countries, fetchAll, fetchByRegion, isLoading } =
+        useFetchCountries();
+    const navigate = useNavigate();
 
-    useLayoutEffect(() => {
-        fetchAll();
+    useEffect(() => {
+        if (region === null) {
+            fetchAll();
+        } else {
+            fetchByRegion(region);
+        }
+    }, [region]);
 
-        console.log(countries);
-    }, []);
+    const handleClick = (name) => {
+        navigate(`/detail/${name}`);
+    };
 
     let content = null;
     if (isLoading) {
         content = 'loading...';
     } else {
-        content = countries.map(
-            ({ flags: { png }, name, population, region, capital, id }) => (
+        content = countries.map((country) => {
+            return (
                 <CountryCard
-                    key={id}
-                    flagImg={png}
-                    name={name}
-                    population={population}
-                    region={region}
-                    capital={capital}
+                    key={country.id}
+                    flagImg={country.flags.png}
+                    name={country.name.official}
+                    population={country.population}
+                    region={country.region}
+                    capital={country?.capital?.join(', ') || 'No information'}
+                    onClick={() => handleClick(country.name.official)}
                 />
-            )
-        );
+            );
+        });
     }
 
     return (

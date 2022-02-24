@@ -1,8 +1,15 @@
 import classes from './CountryCard.module.scss';
 
-export const CountryCard = ({ flagImg, name, population, region, capital }) => {
+export const CountryCard = ({
+    flagImg,
+    name,
+    population,
+    region,
+    capital,
+    ...other
+}) => {
     return (
-        <article className={classes.countryCard}>
+        <article className={classes.countryCard} {...other}>
             <img className={classes.img} src={flagImg} alt='flag image' />
             <div className={classes.content}>
                 <h3 className={classes.name}>{name}</h3>

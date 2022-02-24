@@ -23,13 +23,11 @@ const selectStyles = {
     singleValue: (provided) => ({
         ...provided,
         color: 'var(--color-text)',
-        textTransform: 'capitalize',
     }),
     option: (provided, { isFocused, isSelected }) => ({
         ...provided,
         color: 'var(--color-text)',
         fontWeight: 600,
-        textTransform: 'capitalize',
         backgroundColor: isSelected
             ? 'rgba(0, 0, 0, 0.05)'
             : isFocused

@@ -1,12 +1,19 @@
-import classes from './Home.module.scss';
 import { Filters } from 'components/Filters';
 import { Countries } from 'components/Countries';
+import { useState } from 'react';
 
 export const Home = () => {
+    const [regionFilter, setRegionFilter] = useState(null);
+
     return (
-        <main className={classes.main}>
-            <Filters />
-            <Countries />
-        </main>
+        <>
+            <Filters
+                selectedRegion={regionFilter}
+                onChangeRegion={setRegionFilter}
+            />
+            <Countries
+                region={regionFilter === null ? null : regionFilter.value}
+            />
+        </>
     );
 };

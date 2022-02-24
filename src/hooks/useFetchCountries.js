@@ -5,16 +5,20 @@ export const useFetchCountries = () => {
     const [countries, setCountries] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const fetchAll = async () => {
+    const fetchCountries = async (endPoint = 'all') => {
         try {
             setIsLoading(true);
 
-            const data = await fetch('https://restcountries.com/v2/all'),
-                dataJson = await data.json();
-
-            setCountries(
-                dataJson.slice(0, 10).map((item) => ({ ...item, id: uuidv4() }))
-            );
+            const data = await fetch(
+                    `https://restcountries.com/v3.1/${endPoint}`
+                ),
+                dataJson = await data.json(),
+                dataWithIds = dataJson.map((item) => ({
+                    ...item,
+                    id: uuidv4(),
+                }));
+            // ?fields=name,capital,flags,population,region
+            setCountries(dataWithIds);
 
             setIsLoading(false);
         } catch (error) {
@@ -22,5 +26,17 @@ export const useFetchCountries = () => {
         }
     };
 
-    return { countries, fetchAll, isLoading };
+    const fetchAll = async () => {
+        await fetchCountries();
+    };
+
+    const fetchByRegion = async (region) => {
+        await fetchCountries(`region/${region}`);
+    };
+
+    const fetchByName = async (name) => {
+        await fetchCountries(`name/${name}`);
+    };
+
+    return { countries, fetchAll, fetchByRegion, fetchByName, isLoading };
 };
