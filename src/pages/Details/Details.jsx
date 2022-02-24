@@ -2,7 +2,7 @@ import { useFetchCountries } from '../../hooks/useFetchCountries';
 import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
-export const Detail = () => {
+export const Details = () => {
     const params = useParams();
     const { countries, isLoading, fetchByName } = useFetchCountries();
 
