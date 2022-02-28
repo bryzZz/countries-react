@@ -1,33 +1,28 @@
 import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 export const useFetchCountries = () => {
     const [countries, setCountries] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const fetchCountries = async (endPoint = 'all') => {
+    const fetchCountries = async (endPoint = 'all', fields = '') => {
         try {
             setIsLoading(true);
 
-            const data = await fetch(
-                    `https://restcountries.com/v3.1/${endPoint}`
-                ),
-                dataJson = await data.json(),
-                dataWithIds = dataJson.map((item) => ({
-                    ...item,
-                    id: uuidv4(),
-                }));
-            // ?fields=name,capital,flags,population,region
-            setCountries(dataWithIds);
+            const data = await fetch(`https://restcountries.com/v3.1/${endPoint + fields}`);
+            const dataJson = await data.json();
+
+            setCountries(dataJson);
 
             setIsLoading(false);
+
+            return dataJson;
         } catch (error) {
             console.log(error);
         }
     };
 
     const fetchAll = async () => {
-        await fetchCountries();
+        await fetchCountries('all', '?fields=name,capital,flags,population,region');
     };
 
     const fetchByRegion = async (region) => {
@@ -38,5 +33,5 @@ export const useFetchCountries = () => {
         await fetchCountries(`name/${name}`);
     };
 
-    return { countries, fetchAll, fetchByRegion, fetchByName, isLoading };
+    return { countries, isLoading, fetchAll, fetchByRegion, fetchByName };
 };

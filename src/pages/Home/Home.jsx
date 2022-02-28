@@ -3,17 +3,14 @@ import { Countries } from 'components/Countries';
 import { useState } from 'react';
 
 export const Home = () => {
-    const [regionFilter, setRegionFilter] = useState(null);
+    const [filters, setFilters] = useState({ region: null, name: '' });
+
+    const handleChangeFilters = (tag, value) => setFilters((prev) => ({ ...prev, [tag]: value }));
 
     return (
         <>
-            <Filters
-                selectedRegion={regionFilter}
-                onChangeRegion={setRegionFilter}
-            />
-            <Countries
-                region={regionFilter === null ? null : regionFilter.value}
-            />
+            <Filters filters={filters} onChangeFilters={handleChangeFilters} />
+            <Countries filters={filters} />
         </>
     );
 };

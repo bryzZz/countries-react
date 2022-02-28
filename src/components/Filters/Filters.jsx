@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import classes from './Filters.module.scss';
 import { IoSearch } from 'react-icons/io5';
 import { FiltersSelect } from './FiltersSelect';
@@ -11,9 +10,7 @@ const regions = [
     { value: 'Oceania', label: 'Oceania' },
 ];
 
-export const Filters = ({ selectedRegion, onChangeRegion }) => {
-    const [searchValue, setSearchValue] = useState('');
-
+export const Filters = ({ onChangeFilters, filters }) => {
     return (
         <div className={classes.Filters}>
             <div className={`${classes.container} container`}>
@@ -21,18 +18,18 @@ export const Filters = ({ selectedRegion, onChangeRegion }) => {
                     <IoSearch className={classes.icon} />
                     <input
                         className={classes.input}
-                        value={searchValue}
-                        onChange={(e) => setSearchValue(e.target.value)}
-                        type='text'
-                        placeholder='Search for a country...'
+                        value={filters.name}
+                        onChange={(e) => onChangeFilters('name', e.target.value)}
+                        type="text"
+                        placeholder="Search for a country..."
                     />
                 </div>
                 <FiltersSelect
                     options={regions}
-                    defaultValue={selectedRegion}
-                    onChange={onChangeRegion}
+                    defaultValue={filters.region}
+                    onChange={(value) => onChangeFilters('region', value?.value || null)}
                     isClearable={true}
-                    placeholder='Filter by Region'
+                    placeholder="Filter by Region"
                 />
             </div>
         </div>

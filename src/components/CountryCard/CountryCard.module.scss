@@ -24,6 +24,7 @@
 
 .info-block {
     font-weight: 600;
+    text-transform: capitalize;
 
     &:not(:last-child) {
         margin-bottom: 0.5rem;
