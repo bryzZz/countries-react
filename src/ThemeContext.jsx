@@ -1,4 +1,4 @@
-import { useTheme } from './hooks/useTheme';
+import { useTheme } from 'hooks';
 import React, { useContext } from 'react';
 
 const ThemeContext = React.createContext({

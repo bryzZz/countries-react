@@ -1,6 +1,5 @@
-import { Filters } from 'components/Filters';
-import { Countries } from 'components/Countries';
 import { useState } from 'react';
+import { Filters, Countries } from 'components';
 
 export const Home = () => {
     const [filters, setFilters] = useState({ region: null, name: '' });

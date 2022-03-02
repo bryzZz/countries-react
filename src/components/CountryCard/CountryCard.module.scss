@@ -4,6 +4,13 @@
     box-shadow: var(--shadow);
     border-radius: var(--bor-rad);
     overflow: hidden;
+
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+        box-shadow: 0 0 10px 10px var(--shadow-color);
+    }
 }
 
 .img {

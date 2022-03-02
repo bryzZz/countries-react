@@ -1,15 +1,16 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import classes from './Countries.module.scss';
-import { useFetchCountries } from '../../hooks/useFetchCountries';
-import { CountryCard } from '../CountryCard';
-import { Loader } from '../Loader/Loader';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getAll } from '../../api/countriesApi';
+import { CountryCard, Loader } from 'components';
 
 export const Countries = ({ filters }) => {
-    const { countries, isLoading, fetchAll } = useFetchCountries();
+    const [countries, setCountries] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(fetchAll, []);
+    useEffect(() => {
+        getAll().then(({ data }) => setCountries(data));
+    }, []);
 
     const getFiltredCountries = () => {
         return countries.filter(
@@ -19,43 +20,41 @@ export const Countries = ({ filters }) => {
         );
     };
 
-    const handleClick = (name) => {
-        navigate(`/detail/${name}`);
-    };
+    const handleClick = (name) => navigate(`/detail/${name}`);
+
+    if (countries.length === 0) {
+        return <Loader style={{ margin: '3rem auto 0' }} />;
+    }
 
     let content = null;
-    if (isLoading) {
-        content = <Loader style={{ margin: '3rem auto 0' }} />;
+    const filtredCountries = getFiltredCountries();
+    if (filtredCountries.length === 0) {
+        content = 'Nothing found';
     } else {
-        const filtredCountries = getFiltredCountries();
-        if (filtredCountries.length === 0) {
-            content = 'Nothing found';
-        } else {
-            content = filtredCountries.map((country) => {
-                const countryData = {
-                    flagImg: country.flags.png,
-                    name: country.name.official,
-                    info: [
-                        {
-                            label: 'Population',
-                            data: country.population.toLocaleString(),
-                        },
-                        { label: 'Region', data: country.region },
-                        {
-                            label: 'Capital',
-                            data: country?.capital?.join(', ') || 'No information',
-                        },
-                    ],
-                };
-                return (
-                    <CountryCard
-                        key={country.name.official}
-                        onClick={() => handleClick(country.name.official)}
-                        {...countryData}
-                    />
-                );
-            });
-        }
+        content = filtredCountries.map((country) => {
+            const countryData = {
+                flagImg: country.flags.png,
+                name: country.name.official,
+                info: [
+                    {
+                        label: 'Population',
+                        data: country.population.toLocaleString(),
+                    },
+                    { label: 'Region', data: country.region },
+                    {
+                        label: 'Capital',
+                        data: country?.capital?.join(', ') || 'No information',
+                    },
+                ],
+            };
+            return (
+                <CountryCard
+                    key={country.name.official}
+                    onClick={() => handleClick(country.name.official)}
+                    {...countryData}
+                />
+            );
+        });
     }
 
     return (
